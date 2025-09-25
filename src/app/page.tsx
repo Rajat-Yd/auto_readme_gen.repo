@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { useEffect } from 'react';
 import { generateReadmeAction } from '@/app/actions';
 import type { ReadmeFormState } from '@/lib/types';
@@ -19,7 +19,7 @@ const initialState: ReadmeFormState = {
 };
 
 export default function Home() {
-  const [state, formAction] = useFormState(generateReadmeAction, initialState);
+  const [state, formAction] = useActionState(generateReadmeAction, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
