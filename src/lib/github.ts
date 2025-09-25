@@ -45,6 +45,9 @@ export function parseGitHubUrl(url: string): { owner: string; repo: string } | n
 async function fetchGitHubApi(endpoint: string) {
   const response = await fetch(`${GITHUB_API_URL}${endpoint}`, { headers });
   if (!response.ok) {
+    if (response.status === 403) {
+        throw new Error(`GitHub API request forbidden. This might be due to a missing, invalid, or expired GITHUB_TOKEN, or you may have hit the rate limit. Please check your token in the .env.local file.`);
+    }
     if (response.status === 404) {
       return null;
     }

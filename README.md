@@ -10,7 +10,7 @@ AutoReadmeGen is a Next.js application that takes a public GitHub repository URL
 - **GitHub Data Fetching**: Automatically fetches repository metadata, programming languages, and contents of important files like `package.json`, `requirements.txt`, etc.
 - **AI-Powered Analysis**: Leverages GenAI to analyze the repository's structure, dependencies, and primary language.
 - **README Generation**: Generates a professional, well-structured `README.md` with sections for Description, Features, Installation, Usage, and more.
-- **Live Preview**: Instantly preview the generated Markdown content.
+- **Live Preview & Edit**: Instantly preview the generated Markdown and toggle an edit mode to make adjustments.
 - **Download**: Download the final `README.md` file with a single click.
 
 ## 🛠️ Tech Stack
@@ -31,12 +31,12 @@ AutoReadmeGen is a Next.js application that takes a public GitHub repository URL
 
 ### Environment Variables
 
-Create a `.env.local` file in the root of the project and add the following environment variables. You can copy the structure from `.env.example`.
+Create a `.env.local` file in the root of the project and add the following environment variables.
 
 ```bash
-# Get a personal access token from GitHub: https://github.com/settings/tokens
-# It needs `public_repo` scope to access public repository data.
-GITHUB_TOKEN="your_github_token"
+# Generate a Personal Access Token (classic) from GitHub: https://github.com/settings/tokens
+# The token requires the `public_repo` scope to access public repository data.
+GITHUB_TOKEN="your_github_personal_access_token"
 
 # Get your API key from Google AI Studio: https://aistudio.google.com/app/apikey
 GOOGLE_API_KEY="your_google_api_key"
