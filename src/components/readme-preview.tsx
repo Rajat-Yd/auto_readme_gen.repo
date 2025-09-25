@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, Copy } from 'lucide-react';
+import { Download, Copy, Pencil, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
@@ -16,11 +16,13 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
   const { toast } = useToast();
   const [show, setShow] = useState(false);
   const [editedContent, setEditedContent] = useState(content);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (content) {
       setShow(true);
       setEditedContent(content);
+      setIsEditing(false); // Default to preview mode on new content
     }
   }, [content]);
 
@@ -52,6 +54,8 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
     });
   };
 
+  const toggleEditMode = () => setIsEditing(!isEditing);
+
   if (!show) {
     return null;
   }
@@ -62,6 +66,10 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="font-headline">Generated README</CardTitle>
           <div className="flex gap-2">
+            <Button variant="outline" size="icon" onClick={toggleEditMode}>
+              {isEditing ? <Eye className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
+              <span className="sr-only">{isEditing ? 'Preview' : 'Edit'}</span>
+            </Button>
             <Button variant="outline" size="icon" onClick={handleCopy}>
               <Copy className="h-4 w-4" />
               <span className="sr-only">Copy</span>
@@ -73,15 +81,24 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
           </div>
         </CardHeader>
         <CardContent>
+          {isEditing ? (
             <div className='space-y-2'>
-                <Label htmlFor='readme-editor'>Edit README</Label>
-                <Textarea
-                    id="readme-editor"
-                    value={editedContent}
-                    onChange={(e) => setEditedContent(e.target.value)}
-                    className="h-96 bg-secondary text-secondary-foreground font-code text-sm whitespace-pre-wrap"
-                />
+              <Label htmlFor='readme-editor'>Edit README</Label>
+              <Textarea
+                  id="readme-editor"
+                  value={editedContent}
+                  onChange={(e) => setEditedContent(e.target.value)}
+                  className="h-96 bg-secondary text-secondary-foreground font-mono text-sm whitespace-pre-wrap"
+              />
             </div>
+          ) : (
+            <div className='space-y-2'>
+                <Label>Preview</Label>
+                <div className="prose prose-sm dark:prose-invert max-w-none h-96 overflow-auto rounded-md border bg-secondary p-4 text-secondary-foreground whitespace-pre-wrap font-mono text-sm">
+                    {editedContent}
+                </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
