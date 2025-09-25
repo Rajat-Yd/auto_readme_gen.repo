@@ -1,3 +1,73 @@
+'use client';
+
+import { useFormState } from 'react-dom';
+import { useEffect } from 'react';
+import { generateReadmeAction } from '@/app/actions';
+import type { ReadmeFormState } from '@/lib/types';
+import { useToast } from '@/hooks/use-toast';
+
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ReadmePreview } from '@/components/readme-preview';
+import { Logo } from '@/components/icons';
+import { SubmitButton } from '@/components/submit-button';
+import { Github } from 'lucide-react';
+
+const initialState: ReadmeFormState = {
+  success: false,
+};
+
 export default function Home() {
-  return <></>;
+  const [state, formAction] = useFormState(generateReadmeAction, initialState);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (!state.success && state.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: state.error,
+      });
+    }
+  }, [state, toast]);
+
+  return (
+    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-8">
+      <div className="flex flex-col items-center gap-8 w-full">
+        <div className="text-center space-y-2">
+          <Logo />
+          <p className="max-w-xl text-muted-foreground">
+            Enter a public GitHub repository URL to automatically generate a professional README.md file using AI.
+          </p>
+        </div>
+
+        <form
+          action={formAction}
+          className="w-full max-w-2xl bg-card p-6 rounded-lg border shadow-sm space-y-4"
+        >
+          <div className="space-y-2">
+            <Label htmlFor="repoUrl">GitHub Repository URL</Label>
+            <div className="relative">
+              <Github className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                id="repoUrl"
+                name="repoUrl"
+                type="url"
+                placeholder="https://github.com/owner/repo"
+                required
+                className="pl-9"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+             <SubmitButton />
+          </div>
+        </form>
+
+        {state.success && state.readme && (
+          <ReadmePreview content={state.readme} />
+        )}
+      </div>
+    </main>
+  );
 }
