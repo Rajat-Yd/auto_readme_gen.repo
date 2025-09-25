@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Download, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from './ui/label';
 
 interface ReadmePreviewProps {
   content: string;
@@ -13,15 +15,17 @@ interface ReadmePreviewProps {
 export function ReadmePreview({ content }: ReadmePreviewProps) {
   const { toast } = useToast();
   const [show, setShow] = useState(false);
+  const [editedContent, setEditedContent] = useState(content);
 
   useEffect(() => {
     if (content) {
       setShow(true);
+      setEditedContent(content);
     }
   }, [content]);
 
   const handleDownload = () => {
-    const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+    const blob = new Blob([editedContent], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -33,7 +37,7 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(content).then(() => {
+    navigator.clipboard.writeText(editedContent).then(() => {
       toast({
         title: "Copied to clipboard!",
         description: "You can now paste the README content.",
@@ -69,9 +73,15 @@ export function ReadmePreview({ content }: ReadmePreviewProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <pre className="bg-secondary p-4 rounded-md overflow-x-auto text-sm whitespace-pre-wrap font-code text-secondary-foreground">
-            {content}
-          </pre>
+            <div className='space-y-2'>
+                <Label htmlFor='readme-editor'>Edit README</Label>
+                <Textarea
+                    id="readme-editor"
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    className="h-96 bg-secondary text-secondary-foreground font-code text-sm whitespace-pre-wrap"
+                />
+            </div>
         </CardContent>
       </Card>
     </div>
