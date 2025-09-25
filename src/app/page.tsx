@@ -12,6 +12,7 @@ import { ReadmePreview } from '@/components/readme-preview';
 import { Logo } from '@/components/icons';
 import { SubmitButton } from '@/components/submit-button';
 import { Github } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const initialState: ReadmeFormState = {
   success: false,
@@ -32,8 +33,11 @@ export default function Home() {
   }, [state, toast]);
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-8">
-      <div className="flex flex-col items-center gap-8 w-full">
+    <main className="flex min-h-screen w-full flex-col items-center p-4 sm:p-8">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <div className="flex flex-col items-center gap-8 w-full max-w-4xl">
         <div className="text-center space-y-2">
           <Logo />
           <p className="max-w-xl text-muted-foreground">
@@ -43,7 +47,7 @@ export default function Home() {
 
         <form
           action={formAction}
-          className="w-full max-w-2xl bg-card p-6 rounded-lg border shadow-sm space-y-4"
+          className="w-full max-w-2xl bg-card p-6 rounded-lg border shadow-sm space-y-4 transition-shadow hover:shadow-md"
         >
           <div className="space-y-2">
             <Label htmlFor="repoUrl">GitHub Repository URL</Label>
