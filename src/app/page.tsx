@@ -41,7 +41,7 @@ export default function Home() {
         <div className="w-full max-w-3xl text-center flex flex-col items-center space-y-4 rounded-lg p-8">
           <Logo />
           <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            Instantly generate a professional README for any public GitHub repository using AI. Just paste the URL below to get started.
+            From URL to README in seconds. The AI-powered way to document your code.
           </p>
         </div>
 
@@ -51,6 +51,9 @@ export default function Home() {
         >
           <div className="space-y-2">
             <Label htmlFor="repoUrl">GitHub Repository URL</Label>
+            <p className="text-sm text-muted-foreground">
+              Just paste the URL below to get started.
+            </p>
             <div className="relative">
               <Github className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
