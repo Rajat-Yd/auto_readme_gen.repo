@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { generateReadmeAction } from '@/app/actions';
 import type { ReadmeFormState } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
