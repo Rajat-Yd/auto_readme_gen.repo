@@ -38,10 +38,10 @@ export default function Home() {
         <ThemeToggle />
       </div>
       <div className="flex flex-col items-center gap-8 w-full max-w-4xl">
-        <div className="text-center space-y-2">
+        <div className="w-full max-w-3xl text-center flex flex-col items-center space-y-4 rounded-lg p-8">
           <Logo />
-          <p className="max-w-xl text-muted-foreground">
-            Enter a public GitHub repository URL to automatically generate a professional README.md file using AI.
+          <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            Instantly generate a professional README for any public GitHub repository using AI. Just paste the URL below to get started.
           </p>
         </div>
 
