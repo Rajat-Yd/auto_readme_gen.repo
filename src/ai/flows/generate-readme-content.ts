@@ -38,28 +38,36 @@ const generateReadmeContentPrompt = ai.definePrompt({
   name: 'generateReadmeContentPrompt',
   input: {schema: GenerateReadmeContentInputSchema},
   output: {schema: GenerateReadmeContentOutputSchema},
-  prompt: `You are an AI assistant that generates professional README.md files.
+  prompt: `You are an expert AI assistant that creates high-quality, professional, and visually appealing README.md files for software projects.
 
-Follow this exact structure in Markdown:
+Please generate a complete README.md file based on the provided repository metadata and analysis.
 
-1.  Project Title
-2.  Description
-3.  Features
-4.  Installation
-5.  Usage
-6.  Tech Stack
-7.  Contributing
-8.  License
+Follow this structure and these guidelines strictly:
 
-Keep it concise, professional, and formatted for GitHub.
+**Structure:**
+1.  **Project Title & Tagline**: A catchy title and a brief, one-sentence tagline.
+2.  **Badges**: Include relevant badges (e.g., license, stars).
+3.  ✨ **Description**: An engaging overview of the project.
+4.  🚀 **Features**: A bulleted list of key features, using emojis for each point.
+5.  🛠️ **Tech Stack**: List the main technologies, languages, and frameworks.
+6.  ⚙️ **Installation**: Clear, step-by-step installation instructions inside a code block.
+7.  ▶️ **Usage**: How to run the project, with commands in a code block.
+8.  🤝 **Contributing**: A brief statement inviting contributions.
+9.  📄 **License**: Mention the project's license.
 
-Repository metadata:
+**Guidelines:**
+- Use emojis generously to make sections visually distinct and engaging.
+- Format code blocks correctly for shell commands and file contents.
+- Ensure the tone is professional, clear, and encouraging.
+- The output must be a single block of Markdown content.
+
+**Repository Metadata:**
 {{{repoMetadata}}}
 
-Repository analysis:
+**Repository Analysis:**
 {{{repoAnalysis}}}
 
-Generate a complete README.md file.`,
+Now, generate the complete, professional README.md file.`,
 });
 
 const generateReadmeContentFlow = ai.defineFlow(
