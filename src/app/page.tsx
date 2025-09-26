@@ -1,7 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
-import { useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { generateReadmeAction } from '@/app/actions';
 import type { ReadmeFormState } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
@@ -13,6 +12,7 @@ import { Logo } from '@/components/icons';
 import { SubmitButton } from '@/components/submit-button';
 import { Github } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { FormStatus } from '@/components/form-status';
 
 const initialState: ReadmeFormState = {
   success: false,
@@ -69,6 +69,7 @@ export default function Home() {
           <div className="flex justify-end">
              <SubmitButton />
           </div>
+          <FormStatus success={state.success} />
         </form>
 
         {state.success && state.readme && (
